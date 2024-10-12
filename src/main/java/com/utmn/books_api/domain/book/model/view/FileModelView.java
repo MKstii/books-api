@@ -1,4 +1,4 @@
-package com.utmn.books_api.book.model.view;
+package com.utmn.books_api.domain.book.model.view;
 
 import lombok.Getter;
 import lombok.Setter;

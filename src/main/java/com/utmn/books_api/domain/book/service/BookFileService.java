@@ -1,13 +1,13 @@
-package com.utmn.books_api.book.service;
+package com.utmn.books_api.domain.book.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.utmn.books_api.book.mapper.BooksMapper;
-import com.utmn.books_api.book.model.entity.Book;
-import com.utmn.books_api.book.model.entity.FileModel;
-import com.utmn.books_api.book.model.dto.YandexApiResponseFileUpload;
-import com.utmn.books_api.book.model.dto.YandexApiResponseError;
-import com.utmn.books_api.book.model.view.FileModelView;
-import com.utmn.books_api.book.repository.FileModelRepository;
+import com.utmn.books_api.domain.book.mapper.BooksMapper;
+import com.utmn.books_api.domain.book.model.entity.Book;
+import com.utmn.books_api.domain.book.model.entity.FileModel;
+import com.utmn.books_api.domain.book.model.dto.YandexApiResponseFileUpload;
+import com.utmn.books_api.domain.book.model.dto.YandexApiResponseError;
+import com.utmn.books_api.domain.book.model.view.FileModelView;
+import com.utmn.books_api.domain.book.repository.FileModelRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,7 @@
-package com.utmn.books_api.book.controller;
+package com.utmn.books_api.domain.book.controller;
 
-import com.utmn.books_api.book.model.view.FileModelView;
-import com.utmn.books_api.book.service.BookFileService;
+import com.utmn.books_api.domain.book.model.view.FileModelView;
+import com.utmn.books_api.domain.book.service.BookFileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

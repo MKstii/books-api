@@ -1,4 +1,4 @@
-package com.utmn.books_api.book.model.dto;
+package com.utmn.books_api.domain.book.model.dto;
 
 /**
  * Для обработки ошибок от яндекса

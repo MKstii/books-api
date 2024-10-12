@@ -1,7 +1,7 @@
-package com.utmn.books_api.book.mapper;
+package com.utmn.books_api.domain.book.mapper;
 
-import com.utmn.books_api.book.model.entity.FileModel;
-import com.utmn.books_api.book.model.view.FileModelView;
+import com.utmn.books_api.domain.book.model.entity.FileModel;
+import com.utmn.books_api.domain.book.model.view.FileModelView;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

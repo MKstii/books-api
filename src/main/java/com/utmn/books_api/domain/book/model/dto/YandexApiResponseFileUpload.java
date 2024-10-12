@@ -1,4 +1,4 @@
-package com.utmn.books_api.book.model.dto;
+package com.utmn.books_api.domain.book.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

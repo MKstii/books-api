@@ -1,4 +1,4 @@
-package com.utmn.books_api.book.model.entity;
+package com.utmn.books_api.domain.book.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
