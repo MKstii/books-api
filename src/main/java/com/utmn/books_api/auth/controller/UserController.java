@@ -18,7 +18,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     @GetMapping
-    @Secured({"ADMIN", "PUBLIC"})
+    @Secured({"ADMIN", "CUSTOMER"})
     public List<AppUser> get() {
         return userRepository.findAll();
     }

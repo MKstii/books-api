@@ -31,7 +31,7 @@ public class AppUser implements Serializable {
     private Boolean isVerified = false;
 
     @Column(name = "role")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
 //    @Convert(converter = UserRoleConverter.class)
     private UserRole role;
 

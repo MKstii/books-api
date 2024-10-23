@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 public enum UserRole {
 
     ADMIN,
-    PUBLIC
+    CUSTOMER
 }

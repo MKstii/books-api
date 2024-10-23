@@ -53,7 +53,7 @@ public class AuthService {
         var employee = new AppUser();
         employee.setLogin(dto.getUsername());
         employee.setPassword(passwordEncoder.encode(dto.getPassword()));
-        employee.setRole(UserRole.PUBLIC);
+        employee.setRole(UserRole.CUSTOMER);
         userRepository.save(employee);
         return employee;
     }
