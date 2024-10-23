@@ -1,0 +1,28 @@
+name: &name test
+services:
+  app:
+    image: 'books-api:0_0_1'
+    build:
+      context: .
+    container_name: books-api
+    depends_on:
+      - db
+      - redis
+  db:
+    image: 'postgresql:latest'
+    container_name: db
+    environment:
+      POSTGRES_DB: "docker"
+      POSTGRES_USER: *name
+      POSTGRES_PASSWORD: *name
+
+  redis:
+    image: 'redis:alpine'
+    container_name: redis
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_USER: ${REDIS_USER}
+      REDIS_USER_PASSWORD: ${REDIS_USER_PASSWORD}

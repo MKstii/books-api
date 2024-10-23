@@ -1,6 +1,5 @@
 package com.utmn.books_api.domain.book.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.utmn.books_api.domain.book.mapper.BooksMapper;
 import com.utmn.books_api.domain.book.model.entity.Book;
 import com.utmn.books_api.domain.book.model.entity.FileModel;
@@ -9,6 +8,7 @@ import com.utmn.books_api.domain.book.model.dto.YandexApiResponseError;
 import com.utmn.books_api.domain.book.model.view.FileModelView;
 import com.utmn.books_api.domain.book.repository.FileModelRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class BookFileService {
 
@@ -39,7 +40,6 @@ public class BookFileService {
 
     private static final String PATH_UPLOAD = "upload";
     private static final String PATH_DOWNLOAD = "download";
-    private final ObjectMapper objectMapper;
 
     private final FileModelRepository fileModelRepository;
     private final BooksMapper mapper = BooksMapper.INSTANCE;
@@ -57,8 +57,6 @@ public class BookFileService {
      * @return Ссылка для скачивания файла
      */
     public String upload(long id, MultipartFile file) {
-        var restClient = RestClient.create();
-
         //todo стоит изменить принцип генерции названий для файлов
         var currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyyhhmmss"));
         var filePath = "/" + directory + "/" + currentDateTime;
@@ -68,21 +66,25 @@ public class BookFileService {
                 .queryParam("path", filePath)
                 .build()
                 .toUriString();
-        var result = restClient.get()
-                .uri(uri)
+
+        var result = WebClient.create(uri)
+                .get()
                 .header("Authorization", "OAuth " + token)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (_, response) -> {
-                    var error = objectMapper.convertValue(response.getBody(), YandexApiResponseError.class);
-                    throw new ResponseStatusException(response.getStatusCode(), error.message());
-                })
-                .body(YandexApiResponseFileUpload.class);
+                .onStatus(HttpStatusCode::is4xxClientError, (response) -> {
+                            var error = response.bodyToMono(YandexApiResponseError.class).block();
+                            throw new ResponseStatusException(response.statusCode(), error.message());
+                        }
+                )
+                .bodyToMono(YandexApiResponseFileUpload.class)
+                .block();
 
         var uploadUrl = result.href();
         uploadFile(uploadUrl, file);
 
-        create(id, file, filePath);
+        var fileId = create(id, file, filePath);
+        log.info("Загружен файл id=%d, filePath=%s".formatted(fileId, filePath));
 
         return getDownloadPath(filePath);
     }
@@ -94,15 +96,18 @@ public class BookFileService {
      * @param file     Файл
      * @param filePath Путь к файлу
      */
-    private void create(long id, MultipartFile file, String filePath) {
-        var entityFile = new FileModel();
+    private long create(long id, MultipartFile file, String filePath) {
+
         var book = new Book();
         book.setId(id);
 
-        entityFile.setPath(filePath);
-        entityFile.setMimeType(file.getContentType());
-        entityFile.setBook(book);
-        fileModelRepository.save(entityFile);
+        var entityFile = FileModel.builder()
+                .mimeType(file.getContentType())
+                .path(filePath)
+                .book(book)
+                .build();
+
+        return fileModelRepository.save(entityFile).getId();
     }
 
     /**
@@ -113,8 +118,10 @@ public class BookFileService {
      */
     private void uploadFile(String uploadUrl, MultipartFile file) {
         try {
-            var restClient = RestClient.create();
-            restClient.put()
+            //todo переделать под WebClient
+            //хз почему ломается
+            RestClient.create()
+                    .put()
                     .uri(uploadUrl)
                     .body(file.getBytes())
                     .retrieve()
@@ -133,23 +140,24 @@ public class BookFileService {
      * @return Ссылка для скачивания
      */
     private String getDownloadPath(String filePath) {
-        var restClient = RestClient.create();
         var uri = UriComponentsBuilder
                 .fromUriString(url)
                 .path(PATH_DOWNLOAD)
                 .queryParam("path", filePath)
                 .build()
                 .toUriString();
-        var result = restClient.get()
-                .uri(uri)
+
+        var result = WebClient.create(uri)
+                .get()
                 .header("Authorization", "OAuth " + token)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatusCode::is4xxClientError, (_, response) -> {
-                    var error = objectMapper.convertValue(response.getBody(), YandexApiResponseError.class);
-                    throw new ResponseStatusException(response.getStatusCode(), error.message());
+                .onStatus(HttpStatusCode::is4xxClientError, (response) -> {
+                    var error = response.bodyToMono(YandexApiResponseError.class).block();
+                    throw new ResponseStatusException(response.statusCode(), error.message());
                 })
-                .body(YandexApiResponseFileUpload.class);
+                .bodyToMono(YandexApiResponseFileUpload.class)
+                .block();
         return result.href();
     }
 }

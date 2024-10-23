@@ -1,14 +1,16 @@
 package com.utmn.books_api.domain.book.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Comment;
 
 //todo если гении аналитики придумают еще какие-то файлы хранить, то лучше сделать дженерик класс
+@Entity(name = "file_model")
+@Builder
 @Getter
 @Setter
-@Entity(name = "file_model")
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileModel {
 
     @Id
