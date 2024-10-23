@@ -18,8 +18,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('ADMIN')")
-    @Secured("ADMIN")
+    @Secured({"ADMIN", "PUBLIC"})
     public List<AppUser> get() {
         return userRepository.findAll();
     }

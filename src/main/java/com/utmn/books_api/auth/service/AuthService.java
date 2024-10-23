@@ -26,7 +26,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Setter
@@ -54,7 +53,7 @@ public class AuthService {
         var employee = new AppUser();
         employee.setLogin(dto.getUsername());
         employee.setPassword(passwordEncoder.encode(dto.getPassword()));
-        employee.setRoles(Set.of(UserRole.PUBLIC));
+        employee.setRole(UserRole.PUBLIC);
         userRepository.save(employee);
         return employee;
     }

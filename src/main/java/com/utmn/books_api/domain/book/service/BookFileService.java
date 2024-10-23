@@ -2,11 +2,11 @@ package com.utmn.books_api.domain.book.service;
 
 import com.utmn.books_api.domain.book.mapper.BooksMapper;
 import com.utmn.books_api.domain.book.model.entity.Book;
-import com.utmn.books_api.domain.book.model.entity.FileModel;
+import com.utmn.books_api.domain.book.model.entity.BookCover;
 import com.utmn.books_api.domain.book.model.dto.YandexApiResponseFileUpload;
 import com.utmn.books_api.domain.book.model.dto.YandexApiResponseError;
 import com.utmn.books_api.domain.book.model.view.FileModelView;
-import com.utmn.books_api.domain.book.repository.FileModelRepository;
+import com.utmn.books_api.domain.book.repository.BookCoverRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -41,11 +42,11 @@ public class BookFileService {
     private static final String PATH_UPLOAD = "upload";
     private static final String PATH_DOWNLOAD = "download";
 
-    private final FileModelRepository fileModelRepository;
+    private final BookCoverRepository bookCoverRepository;
     private final BooksMapper mapper = BooksMapper.INSTANCE;
 
     public List<FileModelView> get(long id) {
-        var entities = fileModelRepository.findByBookId(id);
+        var entities = bookCoverRepository.findByBookId(id);
         return entities.stream().map(mapper::from).toList();
     }
 
@@ -101,13 +102,13 @@ public class BookFileService {
         var book = new Book();
         book.setId(id);
 
-        var entityFile = FileModel.builder()
+        var entityFile = BookCover.builder()
                 .mimeType(file.getContentType())
                 .path(filePath)
                 .book(book)
                 .build();
 
-        return fileModelRepository.save(entityFile).getId();
+        return bookCoverRepository.save(entityFile).getId();
     }
 
     /**

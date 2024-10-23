@@ -31,11 +31,13 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<?> loginEmployee(
+    public ResponseEntity<?> login(
             @RequestBody LoginRequest loginRequest,
             HttpServletRequest request,
             HttpServletResponse response
     ) {
-        return new ResponseEntity<>(authService.login(loginRequest, request, response), OK);
+        return ResponseEntity
+                .status(OK)
+                .body(authService.login(loginRequest, request, response));
     }
 }

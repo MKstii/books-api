@@ -1,6 +1,5 @@
 package com.utmn.books_api.auth.model.entity;
 
-import com.utmn.books_api.auth.model.converter.UserRoleConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,12 +8,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Collections;
 
 @Getter
 @Setter
-@Entity(name = "app_user")
+@Entity(name = "app_user") //TODO ещещ один вид пользователя с ролью админа/менеджера и еще какой-нибудь хренью
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class AppUser implements Serializable {
 
     @Id
@@ -31,14 +30,13 @@ public class AppUser implements Serializable {
     @Column(name = "is_verified")
     private Boolean isVerified = false;
 
-    @Column(name = "roles")
-    @Convert(converter = UserRoleConverter.class)
-    private Set<UserRole> roles;
+    @Column(name = "role")
+    @Enumerated(EnumType.ORDINAL)
+//    @Convert(converter = UserRoleConverter.class)
+    private UserRole role;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-//        SimpleGrantedAuthority r = new SimpleGrantedAuthority(this.role);
-        return roles.stream()
-                .map(r -> new SimpleGrantedAuthority(r.name()))
-                .collect(Collectors.toSet());
+        var r = new SimpleGrantedAuthority(this.role.name());
+        return Collections.singleton(r);
     }
 }

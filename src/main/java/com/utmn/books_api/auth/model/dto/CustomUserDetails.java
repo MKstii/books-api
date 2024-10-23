@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+//todo возможно надо удалить
 public record CustomUserDetails(AppUser user) implements UserDetails {
 
     @Override

@@ -5,13 +5,13 @@ import lombok.*;
 import org.hibernate.annotations.Comment;
 
 //todo если гении аналитики придумают еще какие-то файлы хранить, то лучше сделать дженерик класс
-@Entity(name = "file_model")
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileModel {
+@Entity(name = "book_cover")
+public class BookCover {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
