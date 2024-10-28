@@ -1,6 +1,7 @@
 package com.utmn.books_api.domain.history;
 
 import com.utmn.books_api.auth.model.entity.AppUser;
+import com.utmn.books_api.auth.model.entity.Customer;
 import com.utmn.books_api.domain.book.model.entity.Book;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,9 +24,9 @@ public class History {
     @Comment("")
     private LocalDate dateOfIssue;
 
-    @Column(name = "returnUntil")
+    @Column(name = "returnDueDate")
     @Comment("")
-    private LocalDate returnUntil;
+    private LocalDate returnDueDate;
 
     @Column(name = "returnDate")
     @Comment("")
@@ -37,6 +38,6 @@ public class History {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private AppUser customer;
+    private Customer customer;
 }
 

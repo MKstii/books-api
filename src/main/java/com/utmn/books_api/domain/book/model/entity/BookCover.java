@@ -18,10 +18,6 @@ public class BookCover {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Comment("MIME тип")
-    @Column(name = "mime_type")
-    private String mimeType;
-
     @Comment("Путь в яндекс диске")
     @Column(name = "path")
     private String path;

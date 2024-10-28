@@ -22,11 +22,11 @@ public class Author {
     @Comment("")
     private String name;
 
-    @Column(name = "bio")
+    @Column(name = "bio", nullable = false)
     @Comment("")
     private String bio;
 
-    @Column(name = "birth_date")
+    @Column(name = "birth_date", nullable = false)
     @Comment("Дата рождения")
     private LocalDate birthDate;
 

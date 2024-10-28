@@ -103,7 +103,6 @@ public class BookFileService {
         book.setId(id);
 
         var entityFile = BookCover.builder()
-                .mimeType(file.getContentType())
                 .path(filePath)
                 .book(book)
                 .build();

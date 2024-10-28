@@ -2,7 +2,7 @@ package com.utmn.books_api.domain.book.model.entity;
 
 import com.utmn.books_api.domain.author.Author;
 import com.utmn.books_api.domain.history.History;
-import com.utmn.books_api.domain.subject.BookSubject;
+import com.utmn.books_api.domain.subjects.Subject;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,11 +27,11 @@ public class Book {
     @Comment("")
     private String title;
 
-    @Column(name = "subtitle")
+    @Column(name = "subtitle", nullable = false)
     @Comment("")
     private String subtitle;
 
-    @Column(name = "first_publish_date")
+    @Column(name = "first_publish_date", nullable = false)
     @Comment("")
     private LocalDate firstPublishDate;
 
@@ -41,7 +41,7 @@ public class Book {
 
     @ManyToMany
     @JoinTable(
-            name = "BooksAuthors",
+            name = "booksAuthors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
@@ -51,13 +51,12 @@ public class Book {
     @JoinColumn(name = "book_cover_id")
     private BookCover bookCover;
 
-    @OneToOne
-    @JoinColumn(name = "book_subject_id")
-    private BookSubject bookSubject;
+    @ManyToMany
+    @JoinTable(name = "bookSubjects",
+            joinColumns = @JoinColumn(name = "bookId"),
+            inverseJoinColumns = @JoinColumn(name = "subjectId"))
+    private List<Subject> subjects;
 
     @OneToMany(mappedBy = "book")
     private List<History> histories;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "book", orphanRemoval = true)
-    private List<BookCover> covers;
 }
