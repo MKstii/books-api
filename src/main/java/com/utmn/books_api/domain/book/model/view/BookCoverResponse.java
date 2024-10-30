@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FileModelView {
+public class BookCoverResponse {
 
     private Long id;
     private String mimeType;

@@ -1,6 +1,6 @@
 package com.utmn.books_api.domain.book.controller;
 
-import com.utmn.books_api.domain.book.model.view.FileModelView;
+import com.utmn.books_api.domain.book.model.view.BookCoverResponse;
 import com.utmn.books_api.domain.book.service.BookFileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class BookFileController {
 
     @GetMapping
     @Operation(description = "Возващает список файлов книги")
-    public List<FileModelView> get(@PathVariable(name = "id") long id) {
+    public List<BookCoverResponse> get(@PathVariable(name = "id") long id) {
         return bookFileService.get(id);
     }
 

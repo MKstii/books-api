@@ -1,6 +1,6 @@
 package com.utmn.books_api.domain.book.model.entity;
 
-import com.utmn.books_api.domain.author.Author;
+import com.utmn.books_api.domain.author.model.entity.Author;
 import com.utmn.books_api.domain.history.History;
 import com.utmn.books_api.domain.subjects.Subject;
 import jakarta.persistence.*;

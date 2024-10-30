@@ -10,9 +10,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class BooksApiApplication {
 
     public static void main(String[] args) {
-        Dotenv dotenv = Dotenv.load();
-        dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
+        Dotenv.load()
+                .entries()
+                .forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
+
         SpringApplication.run(BooksApiApplication.class, args);
     }
-
 }

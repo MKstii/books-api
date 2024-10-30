@@ -5,7 +5,7 @@ import com.utmn.books_api.domain.book.model.entity.Book;
 import com.utmn.books_api.domain.book.model.entity.BookCover;
 import com.utmn.books_api.domain.book.model.dto.YandexApiResponseFileUpload;
 import com.utmn.books_api.domain.book.model.dto.YandexApiResponseError;
-import com.utmn.books_api.domain.book.model.view.FileModelView;
+import com.utmn.books_api.domain.book.model.view.BookCoverResponse;
 import com.utmn.books_api.domain.book.repository.BookCoverRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,11 +43,11 @@ public class BookFileService {
     private static final String PATH_DOWNLOAD = "download";
 
     private final BookCoverRepository bookCoverRepository;
-    private final BooksMapper mapper = BooksMapper.INSTANCE;
+    private final BooksMapper mapper;
 
-    public List<FileModelView> get(long id) {
+    public List<BookCoverResponse> get(long id) {
         var entities = bookCoverRepository.findByBookId(id);
-        return entities.stream().map(mapper::from).toList();
+        return entities.stream().map(mapper::toResponse).toList();
     }
 
     /**

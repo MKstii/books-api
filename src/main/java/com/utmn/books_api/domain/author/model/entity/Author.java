@@ -1,4 +1,4 @@
-package com.utmn.books_api.domain.author;
+package com.utmn.books_api.domain.author.model.entity;
 
 import com.utmn.books_api.domain.book.model.entity.Book;
 import jakarta.persistence.*;
