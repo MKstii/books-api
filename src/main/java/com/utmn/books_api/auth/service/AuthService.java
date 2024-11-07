@@ -2,7 +2,7 @@ package com.utmn.books_api.auth.service;
 
 import com.utmn.books_api.auth.model.entity.AppUser;
 import com.utmn.books_api.auth.model.entity.UserRole;
-import com.utmn.books_api.auth.model.view.LoginRequest;
+import com.utmn.books_api.auth.model.request.LoginRequest;
 import com.utmn.books_api.auth.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -71,7 +71,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
-                    auth.anyRequest().permitAll();
+                    auth.anyRequest().authenticated();
                 })
                 .exceptionHandling((ex) -> ex.authenticationEntryPoint(this.authEntryPoint))
                 .sessionManagement((session) -> {

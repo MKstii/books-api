@@ -3,14 +3,14 @@ package com.utmn.books_api.domain.author.controller;
 import com.utmn.books_api.domain.author.model.request.AuthorRequest;
 import com.utmn.books_api.domain.author.model.response.AuthorResponse;
 import com.utmn.books_api.domain.author.service.AuthorService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-
+@Tag(name = "Author Controller")
 @RestController
 @RequestMapping("/authors")
 @RequiredArgsConstructor
@@ -35,7 +35,7 @@ public class AuthorController {
     }
 
     @PutMapping("/{id}")
-    public AuthorResponse update(@PathVariable Long id, @RequestBody AuthorRequest request) throws IOException {
+    public AuthorResponse update(@PathVariable Long id, @RequestBody AuthorRequest request) {
         return authorService.create(id, request);
     }
 

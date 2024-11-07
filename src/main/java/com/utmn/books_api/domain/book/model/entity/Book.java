@@ -1,8 +1,8 @@
 package com.utmn.books_api.domain.book.model.entity;
 
 import com.utmn.books_api.domain.author.model.entity.Author;
-import com.utmn.books_api.domain.history.History;
-import com.utmn.books_api.domain.subjects.Subject;
+import com.utmn.books_api.domain.history.model.entity.History;
+import com.utmn.books_api.domain.subject.model.entity.Subject;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,37 +24,36 @@ public class Book {
     private Long id;
 
     @Column(name = "title", nullable = false)
-    @Comment("")
+    @Comment("Наименование")
     private String title;
 
     @Column(name = "subtitle", nullable = false)
-    @Comment("")
+    @Comment("Подзаголовок")
     private String subtitle;
 
     @Column(name = "first_publish_date", nullable = false)
-    @Comment("")
+    @Comment("Дата публикации")
     private LocalDate firstPublishDate;
 
     @Column(name = "description")
-    @Comment("")
+    @Comment("Описание")
     private String description;
 
     @ManyToMany
     @JoinTable(
-            name = "booksAuthors",
+            name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authors;
 
-    @OneToOne
-    @JoinColumn(name = "book_cover_id")
-    private BookCover bookCover;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<BookCover> covers;
 
     @ManyToMany
-    @JoinTable(name = "bookSubjects",
-            joinColumns = @JoinColumn(name = "bookId"),
-            inverseJoinColumns = @JoinColumn(name = "subjectId"))
+    @JoinTable(name = "books_subjects",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private List<Subject> subjects;
 
     @OneToMany(mappedBy = "book")

@@ -19,7 +19,10 @@ public class ControllerAdvices extends ResponseEntityExceptionHandler {
     private record ExceptionDetails(String message, HttpStatus httpStatus) {
     }
 
-    @ExceptionHandler(value = {RuntimeException.class, UnsupportedOperationException.class, IllegalStateException.class})
+    @ExceptionHandler(value = {
+            RuntimeException.class,
+            UnsupportedOperationException.class,
+            IllegalStateException.class})
     public ResponseEntity<?> runTimeException(Exception ex) {
         var exceptionDetails = new ExceptionDetails(
                 ex.getMessage(),

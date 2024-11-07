@@ -32,7 +32,6 @@ public class AppUser implements Serializable {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-//    @Convert(converter = UserRoleConverter.class)
     private UserRole role;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

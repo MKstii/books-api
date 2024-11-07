@@ -1,11 +1,11 @@
 package com.utmn.books_api.domain.book.service;
 
-import com.utmn.books_api.domain.book.mapper.BooksMapper;
+import com.utmn.books_api.domain.book.model.mapper.BooksMapper;
 import com.utmn.books_api.domain.book.model.entity.Book;
 import com.utmn.books_api.domain.book.model.entity.BookCover;
 import com.utmn.books_api.domain.book.model.dto.YandexApiResponseFileUpload;
 import com.utmn.books_api.domain.book.model.dto.YandexApiResponseError;
-import com.utmn.books_api.domain.book.model.view.BookCoverResponse;
+import com.utmn.books_api.domain.book.model.response.BookCoverResponse;
 import com.utmn.books_api.domain.book.repository.BookCoverRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,6 +61,7 @@ public class BookFileService {
         //todo стоит изменить принцип генерции названий для файлов
         var currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyyhhmmss"));
         var filePath = "/" + directory + "/" + currentDateTime;
+        //https://cloud-api.yandex.net/v1/disk/resources/
         var uri = UriComponentsBuilder
                 .fromUriString(url)
                 .path(PATH_UPLOAD)

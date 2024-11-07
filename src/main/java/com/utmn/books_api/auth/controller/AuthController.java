@@ -1,7 +1,8 @@
 package com.utmn.books_api.auth.controller;
 
+import com.utmn.books_api.auth.model.entity.AppUser;
 import com.utmn.books_api.auth.service.AuthService;
-import com.utmn.books_api.auth.model.view.LoginRequest;
+import com.utmn.books_api.auth.model.request.LoginRequest;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,20 +19,20 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/auth")
-@Tag(name = "Auth")
+@Tag(name = "Authorization")
 public class AuthController {
 
     private final AuthService authService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity<?> register(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<AppUser> register(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity
                 .status(CREATED)
                 .body(this.authService.register(loginRequest));
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<?> login(
+    public ResponseEntity<AppUser> login(
             @RequestBody LoginRequest loginRequest,
             HttpServletRequest request,
             HttpServletResponse response

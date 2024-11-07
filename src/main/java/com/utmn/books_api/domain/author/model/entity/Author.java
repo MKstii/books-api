@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity(name = "author")
+@Comment("Автор")
 public class Author {
 
     @Id
@@ -19,11 +20,11 @@ public class Author {
     private Long id;
 
     @Column(name = "name", nullable = false)
-    @Comment("")
+    @Comment("ФИО")
     private String name;
 
     @Column(name = "bio", nullable = false)
-    @Comment("")
+    @Comment("Биография")
     private String bio;
 
     @Column(name = "birth_date", nullable = false)

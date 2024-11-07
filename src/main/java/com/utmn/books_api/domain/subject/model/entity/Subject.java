@@ -1,4 +1,4 @@
-package com.utmn.books_api.domain.subjects;
+package com.utmn.books_api.domain.subject.model.entity;
 
 import com.utmn.books_api.domain.book.model.entity.Book;
 import jakarta.persistence.*;
@@ -10,14 +10,15 @@ import java.util.List;
 
 @Getter
 @Setter
-@Comment("")
+@Comment("Жанр")
 @Entity(name = "subjects")
 public class Subject {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(name = "subjectName", nullable = false)
+    @Column(name = "subject_name", nullable = false)
     String name;
 
     @ManyToMany(mappedBy = "subjects")

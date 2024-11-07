@@ -1,4 +1,4 @@
-package com.utmn.books_api.auth.model.view;
+package com.utmn.books_api.auth.model.request;
 
 import lombok.Data;
 

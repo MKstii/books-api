@@ -6,7 +6,7 @@ import com.utmn.books_api.domain.author.model.response.AuthorResponse;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring"
+        componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface AuthorMapper {
 

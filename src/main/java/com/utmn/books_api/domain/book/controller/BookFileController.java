@@ -1,6 +1,6 @@
 package com.utmn.books_api.domain.book.controller;
 
-import com.utmn.books_api.domain.book.model.view.BookCoverResponse;
+import com.utmn.books_api.domain.book.model.response.BookCoverResponse;
 import com.utmn.books_api.domain.book.service.BookFileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
