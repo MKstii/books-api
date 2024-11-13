@@ -126,7 +126,7 @@ public class BookFileService {
                     .uri(uploadUrl)
                     .body(file.getBytes())
                     .retrieve()
-                    .onStatus(HttpStatusCode::is4xxClientError, (_, response) -> {
+                    .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
                         throw new ResponseStatusException(response.getStatusCode(), response.getStatusText());
                     });
         } catch (IOException e) {
