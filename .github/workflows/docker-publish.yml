@@ -6,14 +6,10 @@ name: Docker
 # documentation.
 
 on:
-  schedule:
-    - cron: '30 17 * * *'
   push:
-    branches: [ "master", "main" ]
+    branches: [ "main" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ "master", "main" ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -36,6 +32,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Setup jdk 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: 21
+
+      - name: build the app
+        run: mvn clean package --file pom.xml
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
