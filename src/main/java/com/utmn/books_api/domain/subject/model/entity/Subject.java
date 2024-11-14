@@ -11,14 +11,14 @@ import java.util.List;
 @Getter
 @Setter
 @Comment("Жанр")
-@Entity(name = "subjects")
+@Entity(name = "subject")
 public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    @Column(name = "subject_name", nullable = false)
+    @Column(name = "subject", nullable = false)
     String name;
 
     @ManyToMany(mappedBy = "subjects")
