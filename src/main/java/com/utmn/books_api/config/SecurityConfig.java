@@ -108,6 +108,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOriginPattern("http://localhost:[*]");
+        config.addAllowedOriginPattern("http://188.120.243.137:8090");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
