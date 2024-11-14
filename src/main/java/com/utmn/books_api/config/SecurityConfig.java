@@ -87,7 +87,7 @@ public class SecurityConfig {
                         }
                 )
                 .logout(out -> out
-                        .logoutUrl("/books-api/logout")
+                        .logoutUrl("/logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .addLogoutHandler(new CustomLogoutHandler(this.redisIndexedSessionRepository))
