@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -30,7 +29,8 @@ public class AuthorService {
     public Author getEntity(Long id) {
         Optional<Author> authorOptional = authorRepository.findById(id);
         return authorOptional.orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Entity with id `%s` not found".formatted(id)));
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Автор с идентификатором id `%s` не найден".formatted(id)));
     }
 
     public AuthorResponse getOne(Long id) {
@@ -44,7 +44,7 @@ public class AuthorService {
         return mapper.toResponse(entity);
     }
 
-    public AuthorResponse create(Long id, AuthorRequest request) {
+    public AuthorResponse update(Long id, AuthorRequest request) {
         var entity = getEntity(id);
         mapper.toEntity(request, entity);
         authorRepository.save(entity);

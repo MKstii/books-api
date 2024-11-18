@@ -1,4 +1,4 @@
-package com.utmn.books_api.domain.customer;
+package com.utmn.books_api.domain.customer.model.entity;
 
 import com.utmn.books_api.domain.history.model.entity.History;
 import jakarta.persistence.*;

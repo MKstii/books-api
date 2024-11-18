@@ -1,6 +1,6 @@
 package com.utmn.books_api.domain.history.model.entity;
 
-import com.utmn.books_api.domain.customer.Customer;
+import com.utmn.books_api.domain.customer.model.entity.Customer;
 import com.utmn.books_api.domain.book.model.entity.Book;
 import jakarta.persistence.*;
 import lombok.Getter;
