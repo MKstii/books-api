@@ -1,10 +1,9 @@
-package com.utmn.books_api.domain.customer.model.response;
+package com.utmn.books_api.domain.customer.model.request;
 
 import lombok.Data;
 
 @Data
-public class CustomerResponse {
-    int id;
+public class CustomerRequest {
     String name;
     String address;
     String zip;
