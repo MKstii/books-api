@@ -90,4 +90,9 @@ public class AuthService {
                     .ifPresent(sessionInfo -> this.redisIndexedSessionRepository.deleteById(sessionInfo.getSessionId()));
         }
     }
+
+    public boolean check(HttpServletRequest request) {
+        var session = request.getSession(false);
+        return session != null && this.redisIndexedSessionRepository.findById(session.getId()) != null;
+    }
 }

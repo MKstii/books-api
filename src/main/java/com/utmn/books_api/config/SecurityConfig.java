@@ -86,7 +86,7 @@ public class SecurityConfig {
                         }
                 )
                 .logout(out -> out
-                        .logoutUrl("/logout")
+                        .logoutUrl("/auth/logout")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                         .addLogoutHandler(new CustomLogoutHandler(this.redisIndexedSessionRepository))
