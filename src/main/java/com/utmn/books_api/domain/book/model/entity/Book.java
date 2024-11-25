@@ -27,10 +27,6 @@ public class Book {
     @Comment("Наименование")
     private String title;
 
-    @Column(name = "subtitle", nullable = false)
-    @Comment("Подзаголовок")
-    private String subtitle;
-
     @Column(name = "first_publish_date", nullable = false)
     @Comment("Дата публикации")
     private LocalDate firstPublishDate;

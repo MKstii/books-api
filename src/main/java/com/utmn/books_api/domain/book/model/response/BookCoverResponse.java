@@ -8,6 +8,5 @@ import lombok.Setter;
 public class BookCoverResponse {
 
     private Long id;
-    private String mimeType;
     private String path;
 }
