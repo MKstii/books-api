@@ -14,6 +14,8 @@ public interface HistoryMapper {
     @Mapping(target = "book.id", source = "booksId")
     History toEntity(HistoryRequest request);
 
+    @Mapping(target = "bookId", source = "book.id")
+    @Mapping(target = "bookTitle", source = "book.title")
     HistoryResponse toResponse(History entity);
 
     @Mapping(target = "customerName", source = "customer.name")

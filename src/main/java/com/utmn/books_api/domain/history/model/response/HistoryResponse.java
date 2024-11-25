@@ -7,6 +7,8 @@ import java.time.LocalDate;
 @Data
 public class HistoryResponse {
     private final Long id;
+    private final Long bookId;
+    private final String bookTitle;
     private final LocalDate dateOfIssue;
     private final LocalDate returnDueDate;
     private final LocalDate returnDate;
