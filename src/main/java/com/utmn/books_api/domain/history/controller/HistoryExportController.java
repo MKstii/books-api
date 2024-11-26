@@ -36,4 +36,18 @@ public class HistoryExportController {
         return new ResponseEntity<>(new ByteArrayResource(stream.toByteArray()),
                 header, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{bookId}/book-history")
+    public ResponseEntity<ByteArrayResource> exportReminders(long bookId) throws IOException {
+
+        var book = historyExcelService.exportBookHistory(bookId);
+        var stream = new ByteArrayOutputStream();
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        header.set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=historyBooks.xlsx");
+        book.write(stream);
+        book.close();
+        return new ResponseEntity<>(new ByteArrayResource(stream.toByteArray()),
+                header, HttpStatus.CREATED);
+    }
 }

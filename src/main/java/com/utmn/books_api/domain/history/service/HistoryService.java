@@ -71,4 +71,9 @@ public class HistoryService {
         var entities = repository.findReminders(pageable);
         return new PagedModel<>(entities.map(mapper::toRemindersResponse));
     }
+
+    public PagedModel<HistoryRemindersResponse> bookHistory(long bookId, Pageable pageable) {
+        var entities = repository.findByBookId(bookId, pageable);
+        return new PagedModel<>(entities.map(mapper::toRemindersResponse));
+    }
 }

@@ -23,8 +23,9 @@ public class HistoryController {
         return service.reminders(pageable);
     }
 
-//    @GetMapping("{bookId}/book-history")
-//    public PagedModel<HistoryResponse> getBookHistory(@ParameterObject Pageable pageable) {
-//        return service.bookHistory(pageable);
-//    }
+    @GetMapping("{bookId}/book-history")
+    public PagedModel<HistoryRemindersResponse> getBookHistory(@PathVariable(name = "bookId") long bookId,
+                                                      @ParameterObject Pageable pageable) {
+        return service.bookHistory(bookId, pageable);
+    }
 }

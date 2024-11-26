@@ -22,4 +22,6 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
             WHERE h.returnDate < CURRENT_DATE AND h.returnDueDate IS NULL
             """)
     Page<History> findReminders(Pageable pageable);
+
+    Page<History> findByBookId(long bookId, Pageable pageable);
 }
