@@ -55,7 +55,7 @@ public class HistoryClientController {
         return service.currentIssue(customerId, pageable);
     }
 
-    @GetMapping("/{customerId}/customerHistory")
+    @GetMapping("/customerHistory/{customerId}")
     public PagedModel<HistoryResponse> customerHistory(
             @ParameterObject Pageable pageable,
             @PathVariable int customerId) {
