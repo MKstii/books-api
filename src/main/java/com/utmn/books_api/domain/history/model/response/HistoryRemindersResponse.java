@@ -10,5 +10,6 @@ public class HistoryRemindersResponse {
     private final String title;
     private final String customerName;
     private final LocalDate dateOfIssue;
+    private final LocalDate returnDueDate;
     private final LocalDate returnDate;
 }

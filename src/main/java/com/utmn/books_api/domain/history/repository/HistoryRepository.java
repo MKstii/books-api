@@ -1,6 +1,7 @@
 package com.utmn.books_api.domain.history.repository;
 
 import com.utmn.books_api.domain.history.model.entity.History;
+import jakarta.persistence.OrderBy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,7 +20,7 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
 
     @Query("""
             SELECT h FROM history h
-            WHERE h.returnDate < CURRENT_DATE AND h.returnDueDate IS NULL
+            WHERE h.returnDueDate < CURRENT_DATE AND h.returnDate IS NULL
             """)
     Page<History> findReminders(Pageable pageable);
 
@@ -33,5 +34,6 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     )
     History findNotReturnedHistory(int customerId, long bookId);
 
+    @OrderBy("dateOfIssue")
     Page<History> findByBookId(long bookId, Pageable pageable);
 }

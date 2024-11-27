@@ -25,7 +25,6 @@ public class HistoryExportController {
 
     @GetMapping("/reminders")
     public ResponseEntity<ByteArrayResource> exportReminders() throws IOException {
-
         var book = historyExcelService.exportReminders();
         var stream = new ByteArrayOutputStream();
         HttpHeaders header = new HttpHeaders();
@@ -39,7 +38,6 @@ public class HistoryExportController {
 
     @GetMapping("/{bookId}/book-history")
     public ResponseEntity<ByteArrayResource> exportReminders(long bookId) throws IOException {
-
         var book = historyExcelService.exportBookHistory(bookId);
         var stream = new ByteArrayOutputStream();
         HttpHeaders header = new HttpHeaders();
