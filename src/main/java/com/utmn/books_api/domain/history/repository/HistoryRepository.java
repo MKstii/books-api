@@ -13,7 +13,7 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
     @Query("""
             SELECT h FROM history h
             WHERE h.customer.id = :customerId
-                AND h.returnDueDate IS NULL
+                AND h.returnDate IS NULL
             """)
     Page<History> findAllByCustomerIdWithoutHistorical(int customerId, Pageable pageable);
 
@@ -22,6 +22,16 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
             WHERE h.returnDate < CURRENT_DATE AND h.returnDueDate IS NULL
             """)
     Page<History> findReminders(Pageable pageable);
+
+    @Query(
+            """
+            SELECT h FROM history h
+            WHERE h.customer.id = :customerId
+            AND h.book.id = :bookId
+            AND h.returnDate is NULL
+            """
+    )
+    History findNotReturnedHistory(int customerId, long bookId);
 
     Page<History> findByBookId(long bookId, Pageable pageable);
 }

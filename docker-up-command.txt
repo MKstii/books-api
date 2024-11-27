@@ -1,0 +1,2 @@
+cd docker-compose
+docker run --env-file .env -d -p 8090:8080 ghcr.io/mkstii/books-api:main

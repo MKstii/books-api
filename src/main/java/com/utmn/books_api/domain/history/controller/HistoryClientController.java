@@ -30,16 +30,14 @@ public class HistoryClientController {
 ////        return authorService.getOne(id);
 //    }
 //
-    @PostMapping("/{customerId}")
-    public HistoryResponse create(@PathVariable int customerId, @RequestBody HistoryRequest request) {
-        return service.create(customerId, request);
+    @PostMapping("/make-issue/{customerId}/{bookId}")
+    public HistoryResponse create(@PathVariable int customerId, @PathVariable long bookId) {
+        return service.create(customerId, bookId);
     }
 
-    @PutMapping("/{id}")
-    public HistoryResponse update(@PathVariable long id,
-                                  @RequestParam(name = "returnDate", required = false,
-                                          defaultValue = "#{T(java.time.LocalDate).now()}") LocalDate returnDueDate) {
-        return service.update(id, returnDueDate);
+    @PutMapping("/make-return/{id}")
+    public HistoryResponse update(@PathVariable long id) {
+        return service.update(id);
     }
 
 

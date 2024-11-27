@@ -1,9 +1,10 @@
 package com.utmn.books_api.domain.history.service;
 
+import com.utmn.books_api.domain.book.service.BookService;
+import com.utmn.books_api.domain.customer.model.entity.Customer;
 import com.utmn.books_api.domain.customer.service.CustomerService;
 import com.utmn.books_api.domain.history.model.entity.History;
 import com.utmn.books_api.domain.history.model.mapper.HistoryMapper;
-import com.utmn.books_api.domain.history.model.request.HistoryRequest;
 import com.utmn.books_api.domain.history.model.response.HistoryRemindersResponse;
 import com.utmn.books_api.domain.history.model.response.HistoryResponse;
 import com.utmn.books_api.domain.history.repository.HistoryRepository;
@@ -24,6 +25,7 @@ public class HistoryService {
     private final HistoryMapper mapper;
 
     private final CustomerService customerService;
+    private final BookService bookService;
 
     public PagedModel<HistoryResponse> get(Pageable pageable) {
         var entities = repository.findAll(pageable);
@@ -36,23 +38,21 @@ public class HistoryService {
                         "История с идентификатором `%s` не найден".formatted(id)));
     }
 
-    public HistoryResponse create(int customerId, HistoryRequest request) {
-        var entity = mapper.toEntity(request);
-        if (entity.getDateOfIssue() == null) {
-            entity.setDateOfIssue(LocalDate.now());
-        }
-        if (entity.getReturnDate() == null) {
-            entity.setReturnDate(LocalDate.now().plusDays(21));
-        }
+    public HistoryResponse create(int customerId, long bookId) {
+        var history = new History();
         var customer = customerService.getEntity(customerId);
-        entity.setCustomer(customer);
-        repository.save(entity);
-        return mapper.toResponse(entity);
+        var book = bookService.getEntity(bookId);
+        history.setCustomer(customer);
+        history.setBook(book);
+        history.setDateOfIssue(LocalDate.now());
+        history.setReturnDueDate(LocalDate.now().plusDays(21));
+        repository.save(history);
+        return mapper.toResponse(history);
     }
 
-    public HistoryResponse update(long id, LocalDate returnDueDate) {
-        var entity = get(id);
-        entity.setReturnDueDate(returnDueDate);
+    public HistoryResponse update(long historyId) {
+        var entity = get(historyId);
+        entity.setReturnDate(LocalDate.now());
         repository.save(entity);
         return mapper.toResponse(entity);
     }
