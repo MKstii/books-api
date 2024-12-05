@@ -23,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,11 +44,11 @@ public class BookFileService {
     private static final String PATH_DOWNLOAD = "download";
 
     private final BookCoverRepository bookCoverRepository;
-    private final BooksMapper mapper;
+    //private final BooksMapper mapper;
 
     public List<BookCoverResponse> get(long id) {
         var entities = bookCoverRepository.findByBookId(id);
-        return entities.stream().map(mapper::toResponse).toList();
+        return new ArrayList<BookCoverResponse>();
     }
 
     /**
@@ -140,7 +141,7 @@ public class BookFileService {
      * @param filePath путь хранения
      * @return Ссылка для скачивания
      */
-    private String getDownloadPath(String filePath) {
+    public String getDownloadPath(String filePath) {
         var uri = UriComponentsBuilder
                 .fromUriString(url)
                 .path(PATH_DOWNLOAD)

@@ -8,6 +8,7 @@ import com.utmn.books_api.domain.book.model.entity.BookCover;
 import com.utmn.books_api.domain.book.model.response.BookCoverResponse;
 import com.utmn.books_api.domain.book.model.response.BookResponse;
 import com.utmn.books_api.domain.book.model.response.BookSearchResponse;
+import com.utmn.books_api.domain.book.service.BookFileService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -19,7 +20,16 @@ public abstract class BooksMapper {
     @Autowired
     AuthorMapper authorMapper;
 
+    @Autowired
+    BookFileService bookFileService;
+
+    @Mapping(target = "path", source = "path", qualifiedByName = "getImgUrl")
     public abstract BookCoverResponse toResponse(BookCover entity);
+
+    @Named("getImgUrl")
+    String getImgUrl(String path){
+        return bookFileService.getDownloadPath(path);
+    }
 
     public abstract BookResponse toBookResponse(Book entity);
 
