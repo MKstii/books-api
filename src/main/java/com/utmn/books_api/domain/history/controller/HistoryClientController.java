@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -31,8 +32,12 @@ public class HistoryClientController {
 //    }
 //
     @PostMapping("/make-issue/{customerId}/{bookId}")
-    public HistoryResponse create(@PathVariable int customerId, @PathVariable long bookId) {
-        return service.create(customerId, bookId);
+    public ResponseEntity<HistoryResponse> create(@PathVariable int customerId, @PathVariable long bookId) {
+        var history = service.create(customerId, bookId);
+        if(history == null){
+            return ResponseEntity.badRequest().body(null);
+        }
+        return ResponseEntity.ok(history);
     }
 
     @PutMapping("/make-return/{id}")

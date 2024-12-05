@@ -39,6 +39,12 @@ public class HistoryService {
     }
 
     public HistoryResponse create(int customerId, long bookId) {
+        int issueCount = repository.issueCountByCustomerId(customerId);
+
+        if(issueCount >= 5){
+            return null;
+        }
+
         var history = new History();
         var customer = customerService.getEntity(customerId);
         var book = bookService.getEntity(bookId);
