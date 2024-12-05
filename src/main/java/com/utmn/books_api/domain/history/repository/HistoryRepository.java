@@ -36,4 +36,13 @@ public interface HistoryRepository extends JpaRepository<History, Long> {
 
     @OrderBy("dateOfIssue")
     Page<History> findByBookId(long bookId, Pageable pageable);
+
+    @Query(
+            """
+            SELECT count(*) FROM history h
+            WHERE h.customer.id = :customerId
+            AND h.returnDate is NULL
+            """
+    )
+    int issueCountByCustomerId(int customerId);
 }
