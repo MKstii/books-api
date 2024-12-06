@@ -1,6 +1,7 @@
 package com.utmn.books_api.domain.book.model.entity;
 
 import com.utmn.books_api.domain.author.model.entity.Author;
+import com.utmn.books_api.domain.exhibition.model.entity.ExhibitionBook;
 import com.utmn.books_api.domain.history.model.entity.History;
 import com.utmn.books_api.domain.subject.model.entity.Subject;
 import jakarta.persistence.*;
@@ -51,6 +52,9 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private List<Subject> subjects;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<ExhibitionBook> exhibitions;
 
     @OneToMany(mappedBy = "book")
     private List<History> histories;

@@ -1,6 +1,5 @@
 package com.utmn.books_api.domain.book.controller;
 
-import com.utmn.books_api.domain.book.model.entity.Book;
 import com.utmn.books_api.domain.book.model.response.BookResponse;
 import com.utmn.books_api.domain.book.model.response.BookSearchResponse;
 import com.utmn.books_api.domain.book.service.BookService;
