@@ -20,6 +20,7 @@
         <lombok.version>1.18.34</lombok.version>
         <flyway.version>10.19.0</flyway.version>
         <lombok.version>1.18.34</lombok.version>
+        <lettuce.version>6.5.1.RELEASE</lettuce.version>
     </properties>
     <dependencies>
         <dependency>
@@ -57,6 +58,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>

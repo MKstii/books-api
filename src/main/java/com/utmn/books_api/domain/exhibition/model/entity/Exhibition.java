@@ -27,6 +27,6 @@ public class Exhibition {
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
-    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "exhibition", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ExhibitionBook> books;
 }
