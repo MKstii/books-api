@@ -41,8 +41,11 @@ public class HistoryService {
     public HistoryResponse create(int customerId, long bookId) {
         int issueCount = repository.issueCountByCustomerId(customerId);
 
+        // Дима не может обработать нормально ошибку?
+        // К чему такая дичь
         if(issueCount >= 5){
             return null;
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Слишком много книг, умник");
         }
 
         var history = new History();

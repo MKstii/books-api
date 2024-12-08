@@ -11,12 +11,9 @@ import org.mapstruct.*;
 )
 public interface AuthorMapper {
 
-
     Author toEntity(AuthorRequest request);
 
     AuthorResponse toResponse(Author entity);
-
-    AuthorShortResponse toBookSearchResponse(Author entity);
 
     void toEntity(AuthorRequest request, @MappingTarget Author entity);
 }

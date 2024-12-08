@@ -78,10 +78,10 @@ public class SecurityConfig {
                 })
                 .exceptionHandling((ex) -> ex.authenticationEntryPoint(this.authEntryPoint))
                 .sessionManagement((session) -> {
-                            session.maximumSessions(1)
+                            session.maximumSessions(maxSession)
                                     .sessionRegistry(sessionRegistry())
                                     .maxSessionsPreventsLogin(true);
-                            session.sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::newSession);
+                            session.sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::migrateSession);
                             session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                         }
                 )

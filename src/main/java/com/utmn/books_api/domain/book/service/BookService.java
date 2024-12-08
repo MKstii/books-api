@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class BookService {
     private final BookRepository bookRepository;
     private final BooksMapper booksMapper;
+    private final BookFileService bookFileService;
 
     public Book getEntity(Long id) {
         return bookRepository.findById(id).orElseThrow(() ->
@@ -25,13 +26,15 @@ public class BookService {
                         "Клиент с идентификатором `%s` не найден".formatted(id)));
     }
 
-    public Page<BookSearchResponse> searchBooks(Pageable pageable, String title, String author, String subject){
+    public Page<BookSearchResponse> searchBooks(Pageable pageable, String title, String author, String subject) {
         var books = bookRepository.findByTitleAuthorSubject(pageable, title, author, subject);
         return books.map(booksMapper::toSearchResponse);
     }
 
-    public BookResponse getById(Long id){
+    public BookResponse getById(Long id) {
         var entity = getEntity(id);
-        return booksMapper.toBookResponse(entity);
+        var response = booksMapper.toBookResponse(entity);
+        response.getCovers().forEach(bookFileService::refreshDownloadPath);
+        return response;
     }
 }

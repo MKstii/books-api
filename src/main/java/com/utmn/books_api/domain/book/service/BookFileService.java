@@ -23,7 +23,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,11 +43,13 @@ public class BookFileService {
     private static final String PATH_DOWNLOAD = "download";
 
     private final BookCoverRepository bookCoverRepository;
-    //private final BooksMapper mapper;
+    private final BooksMapper mapper;
 
     public List<BookCoverResponse> get(long id) {
         var entities = bookCoverRepository.findByBookId(id);
-        return new ArrayList<BookCoverResponse>();
+        var response = entities.stream().map(mapper::toResponse).toList();
+        response.forEach(this::refreshDownloadPath);
+        return response;
     }
 
     /**
@@ -133,6 +134,10 @@ public class BookFileService {
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
+    }
+
+    public void refreshDownloadPath(BookCoverResponse response) {
+        response.setPath(getDownloadPath(response.getPath()));
     }
 
     /**
