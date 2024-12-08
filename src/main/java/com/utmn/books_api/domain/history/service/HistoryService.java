@@ -1,7 +1,6 @@
 package com.utmn.books_api.domain.history.service;
 
 import com.utmn.books_api.domain.book.service.BookService;
-import com.utmn.books_api.domain.customer.model.entity.Customer;
 import com.utmn.books_api.domain.customer.service.CustomerService;
 import com.utmn.books_api.domain.history.model.entity.History;
 import com.utmn.books_api.domain.history.model.mapper.HistoryMapper;

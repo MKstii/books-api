@@ -5,7 +5,6 @@ import com.utmn.books_api.domain.book.model.mapper.BooksMapper;
 import com.utmn.books_api.domain.book.model.response.BookResponse;
 import com.utmn.books_api.domain.book.model.response.BookSearchResponse;
 import com.utmn.books_api.domain.book.repository.BookRepository;
-import com.utmn.books_api.domain.customer.model.entity.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
