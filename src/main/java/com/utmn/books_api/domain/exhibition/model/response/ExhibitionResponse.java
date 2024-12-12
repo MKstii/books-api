@@ -4,7 +4,7 @@ import com.utmn.books_api.domain.book.model.response.BookSearchResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -13,7 +13,7 @@ public class ExhibitionResponse {
     private Long id;
     private String name;
     private String description;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private List<BookSearchResponse> books;
 }
