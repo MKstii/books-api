@@ -24,7 +24,6 @@ public class ExhibitionRequest {
 
     @NotNull(message = "Дата окончания должна быть заполнена.")
     private LocalDateTime endDate;
-
-    @NotEmpty(message = "Хотя бы одна книга должна быть.")
+    
     private List<ExhibitionBookRequest> books;
 }
