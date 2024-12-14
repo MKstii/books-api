@@ -9,12 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-    @Query("SELECT DISTINCT b FROM book b " +
-            "JOIN b.authors a " +
-            "JOIN b.subjects s " +
-            "WHERE (LOWER(a.name) LIKE LOWER(CONCAT('%', COALESCE(:author, ''), '%'))) " +
-            "AND (LOWER(b.title) LIKE LOWER(CONCAT('%', COALESCE(:title, ''), '%'))) " +
-            "AND (LOWER(s.name) LIKE LOWER(CONCAT('%', COALESCE(:subject, ''), '%')))")
+    @Query("""
+            SELECT DISTINCT b FROM book b
+            JOIN b.authors a
+            JOIN b.subjects s
+            WHERE (LOWER(a.name) LIKE LOWER(CONCAT('%', COALESCE(:author, ''), '%')))
+            AND (LOWER(b.title) LIKE LOWER(CONCAT('%', COALESCE(:title, ''), '%')))
+            AND (LOWER(s.name) LIKE LOWER(CONCAT('%', COALESCE(:subject, ''), '%')))""")
     Page<Book> findByTitleAuthorSubject(
             Pageable pageable,
             @Param("title")String title,

@@ -6,6 +6,7 @@ import com.utmn.books_api.domain.exhibition.model.request.ExhibitionRequest;
 import com.utmn.books_api.domain.exhibition.model.response.ExhibitionResponse;
 import com.utmn.books_api.domain.exhibition.repository.ExhibitionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -31,28 +31,18 @@ public class ExhibitionService {
         return exhibitionMapper.toResponse(getEntity(id));
     }
 
-    //Такой хрени еще не приходилось делать
     public PagedModel<ExhibitionResponse> get(String name, LocalDate startDate, LocalDate endDate, Pageable pageable) {
-        if (name == null && startDate == null && endDate == null) {
-            var entities = exhibitionRepository.findAll(pageable);
-            return new PagedModel<>(entities.map(exhibitionMapper::toResponse));
+        Page<Exhibition> entities;
+        if (name != null) {
+            entities = exhibitionRepository.findAllByName(name, pageable);
+        } else if (startDate != null && endDate != null) {
+            entities = exhibitionRepository.findAllByStartDateBetween(startDate, endDate, pageable);
+        } else if (startDate != null) {
+            entities = exhibitionRepository.findAllByStartDateGreaterThanEqual(startDate, pageable);
         } else {
-            LocalDateTime startStartDay = null;
-            LocalDateTime startEndDay = null;
-            LocalDateTime endStartDay = null;
-            LocalDateTime endEndDay = null;
-            if (startDate != null) {
-                startStartDay = startDate.atStartOfDay();
-                startEndDay = startDate.atTime(23, 59, 59);
-            } else if (endDate != null) {
-                endStartDay = endDate.atStartOfDay();
-                endEndDay = endDate.atTime(23, 59, 59);
-            }
-            var entities = exhibitionRepository.getAllByFilters(
-                    name, startStartDay, startEndDay, endStartDay, endEndDay, pageable
-            );
-            return new PagedModel<>(entities.map(exhibitionMapper::toResponse));
+            entities = exhibitionRepository.findAll(pageable);
         }
+        return new PagedModel<>(entities.map(exhibitionMapper::toResponse));
     }
 
     public ExhibitionResponse create(ExhibitionRequest request) {
@@ -68,7 +58,7 @@ public class ExhibitionService {
         return exhibitionMapper.toResponse(entity);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         exhibitionRepository.deleteById(id);
     }
 }

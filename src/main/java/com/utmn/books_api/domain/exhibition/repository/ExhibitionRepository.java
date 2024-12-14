@@ -7,20 +7,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public interface ExhibitionRepository extends JpaRepository<Exhibition, Long> {
 
     @Query("""
             SELECT e FROM exhibition e
             WHERE LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%'))
-            OR e.startDate BETWEEN :startStartDay AND :startEndDay
-            OR e.endDate BETWEEN :endStartDay AND :endEndDay
             """)
-    Page<Exhibition> getAllByFilters(
-            @Param("name") String name,
-            @Param("startStartDay") LocalDateTime startStartDay, @Param("startEndDay") LocalDateTime startEndDay,
-            @Param("endStartDay") LocalDateTime endStartDay, @Param("endEndDay") LocalDateTime endEndDay,
-            Pageable pageable
-    );
+    Page<Exhibition> findAllByName(@Param("name") String name, Pageable pageable);
+
+    Page<Exhibition> findAllByStartDateGreaterThanEqual(LocalDate startDate, Pageable pageable);
+
+    Page<Exhibition> findAllByStartDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
 }
