@@ -36,7 +36,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
-@EnableRedisIndexedHttpSession
+@EnableRedisIndexedHttpSession(maxInactiveIntervalInSeconds = 10800) // todo
 public class SecurityConfig {
 
     @Value(value = "${custom.max.session}")
