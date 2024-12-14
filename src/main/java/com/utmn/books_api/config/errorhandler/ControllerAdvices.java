@@ -33,7 +33,7 @@ public class ControllerAdvices extends ResponseEntityExceptionHandler {
             IllegalStateException.class})
     public ResponseEntity<?> runTimeException(Exception ex) {
         var exceptionDetails = new ExceptionDetails(
-                ex.getMessage(),
+                ex.getLocalizedMessage(),
                 INTERNAL_SERVER_ERROR
         );
         return new ResponseEntity<>(exceptionDetails, INTERNAL_SERVER_ERROR);
@@ -42,7 +42,7 @@ public class ControllerAdvices extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {AuthenticationException.class})
     public ResponseEntity<?> authenticationException(Exception e) {
         var exceptionDetails = new ExceptionDetails(
-                e.getMessage(),
+                e.getLocalizedMessage(),
                 UNAUTHORIZED
         );
         return new ResponseEntity<>(exceptionDetails, UNAUTHORIZED);
@@ -60,7 +60,7 @@ public class ControllerAdvices extends ResponseEntityExceptionHandler {
     @Override
     @Nullable
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+            MethodArgumentNotValidException ex,  HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         var messages = Arrays.stream(ex.getDetailMessageArguments()).map(Object::toString).collect(Collectors.joining("\n"));
         var exceptionDetails = new ExceptionDetails(
                 messages,
