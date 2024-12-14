@@ -40,7 +40,7 @@ public class HistoryService {
     public HistoryResponse create(int customerId, long bookId) {
         int issueCount = repository.issueCountByCustomerId(customerId);
 
-        // Дима не может обработать нормально ошибку?
+        // todo Дима не может обработать нормально ошибку?
         // К чему такая дичь
         if(issueCount >= 5){
             return null;
@@ -71,7 +71,7 @@ public class HistoryService {
     }
 
     public PagedModel<HistoryResponse> customerHistory(int customerId, Pageable pageable) {
-        var entities = repository.findAllByCustomerId(customerId, pageable);
+        var entities = repository.findAllByCustomerIdAndReturnDateNotNull(customerId, pageable);
         return new PagedModel<>(entities.map(mapper::toResponse));
     }
 
