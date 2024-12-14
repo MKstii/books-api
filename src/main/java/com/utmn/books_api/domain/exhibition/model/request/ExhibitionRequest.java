@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,10 +21,10 @@ public class ExhibitionRequest {
     private String description;
 
     @NotNull(message = "Дата начала должна быть заполнена.")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @NotNull(message = "Дата окончания должна быть заполнена.")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
     
     private List<ExhibitionBookRequest> books;
 }

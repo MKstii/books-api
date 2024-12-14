@@ -8,6 +8,6 @@ public class ExhibitionDateValidationValidator implements ConstraintValidator<Ex
 
     @Override
     public boolean isValid(ExhibitionRequest value, ConstraintValidatorContext context) {
-        return value.getStartDate().isBefore(value.getEndDate());
+        return value.getStartDate().equals(value.getEndDate()) || value.getStartDate().isBefore(value.getEndDate());
     }
 }
